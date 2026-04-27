@@ -34,7 +34,7 @@ dependencies {
 group = 'org.mifos.phee'
 version = '1.1.1-SNAPSHOT'
 description = 'exporter'
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 publishing {
     publications {
