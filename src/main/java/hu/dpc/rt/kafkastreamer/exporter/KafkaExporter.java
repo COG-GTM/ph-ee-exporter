@@ -77,14 +77,18 @@ public class KafkaExporter implements Exporter {
 
     @Override
     public void export(Record<?> record) {
-        logger.trace("Exporting record " + record);
+        if (logger.isTraceEnabled()) {
+            logger.trace("Exporting record " + record);
+        }
         client.index(record);
         lastPosition = record.getPosition();
 
         if (client.shouldFlush()) {
             flush();
         }
-        logger.trace("Finish exporting record " + record);
+        if (logger.isTraceEnabled()) {
+            logger.trace("Finish exporting record " + record);
+        }
     }
 
     protected KafkaExporterClient createClient() {
