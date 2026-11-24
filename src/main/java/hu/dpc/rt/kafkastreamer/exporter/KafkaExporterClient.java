@@ -73,11 +73,12 @@ public class KafkaExporterClient {
         }
 
         if (configuration.shouldIndexRecord(record)) {
-            logger.trace("sending record to kafka: {}", record.toJson());
+            String json = record.toJson();
+            logger.trace("sending record to kafka: {}", json);
             sentToKafka.incrementAndGet();
             metrics.recordBulkSize(1);
-            producer.send(new ProducerRecord<>(kafkaTopic, idFor(record), record.toJson()));
-        } else {
+            producer.send(new ProducerRecord<>(kafkaTopic, idFor(record), json));
+        } else if (logger.isTraceEnabled()) {
             logger.trace("skipping record: {}", record.toString());
         }
     }
